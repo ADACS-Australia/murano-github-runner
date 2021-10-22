@@ -28,7 +28,7 @@ Forms:
             Enter a desired name for the runner. This is the name that you will see on GitHub.
         - name: runnerUrl
           type: string
-          label: Runner URL
+          label: Repository URL
           required: true
           description: >-
             Enter the URL for the GitHub repository you are setting up the runner for.
@@ -43,8 +43,14 @@ Forms:
         - name: runnerTags
           type: string
           label: Runner labels
-          initial: 'self-hosted, openstack'
+          initial: 'self-hosted,openstack'
           required: true
+          helpText: Labels must be less than 256 characters in length and may not start or end with whitespace characters.
+          validators:
+            - expr:
+                regexpValidator: '^[^\s]*$'
+              message: >-
+                  Label list cannot contain whitespace chatacters
           description: >-
             Enter a comma separated list of labels to add to the runner.
             These labels will be available in GitHub CI/CD workflows.
