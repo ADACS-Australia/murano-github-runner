@@ -1,0 +1,89 @@
+Version: 2
+
+Application:
+  ?:
+    type: au.org.adacs.GitHubRunner
+  runnerName: $.appConfiguration.runnerName
+  runnerUrl: $.appConfiguration.runnerUrl
+  runnerToken: $.appConfiguration.runnerToken
+  runnerTags: $.appConfiguration.runnerTags
+  instance:
+    ?:
+      type: io.murano.resources.LinuxMuranoInstance
+    name: generateHostname($.instanceConfiguration.unitNamingPattern, 1)
+    flavor: $.instanceConfiguration.flavor
+    image: 356ff1ed-5960-4ac2-96a1-0c0198e6a999
+    keyname: $.instanceConfiguration.keyPair
+    availabilityZone: $.instanceConfiguration.availabilityZone
+
+Forms:
+  - appConfiguration:
+      fields:
+        - name: runnerName
+          type: string
+          label: Runner Name
+          initial: 'custom-runner'
+          required: true
+          description: >-
+            Enter a desired name for the runner. This is the name that you will see on GitHub.
+        - name: runnerUrl
+          type: string
+          label: Runner URL
+          required: true
+          description: >-
+            Enter the URL for the GitHub repository you are setting up the runner for.
+          helpText: >-
+            e.g. https://github.com/<username>/<repo-name>
+        - name: runnerToken
+          type: string
+          label: Runner Token
+          required: true
+          description: >-
+            Enter the token for this GitHub runner. You will find this in your repository settings.
+        - name: runnerTags
+          type: string
+          label: Runner labels
+          initial: 'self-hosted, openstack'
+          required: true
+          description: >-
+            Enter a comma separated list of labels to add to the runner.
+            These labels will be available in GitHub CI/CD workflows.
+
+  - instanceConfiguration:
+      fields:
+        - name: title
+          type: string
+          required: false
+          hidden: true
+          description: Specify some instance parameters on which the application would be created
+        - name: flavor
+          type: flavor
+          label: Instance flavor
+          description: >-
+            Select registered in Openstack flavor. Consider that application performance
+            depends on this parameter.
+          required: false
+        - name: keyPair
+          type: keypair
+          label: Key Pair
+          description: >-
+            Select the Key Pair to control access to instances. You can login to
+            instances using this KeyPair after the deployment of application.
+          required: false
+        - name: availabilityZone
+          type: azone
+          label: Availability zone
+          description: Select availability zone where application would be installed.
+          required: false
+        - name: unitNamingPattern
+          type: string
+          label: Virtual Machine (Instance) Name
+          required: false
+          maxLength: 64
+          regexpValidator: '^[a-zA-z][-_\w]*$'
+          errorMessages:
+            invalid: Just letters, numbers, underscores and hyphens are allowed.
+          helpText: Just letters, numbers, underscores and hyphens are allowed.
+          description: >-
+            Specify a string, that will be used in the instance hostname.
+            Just A-Z, a-z, 0-9, dash and underline are allowed.

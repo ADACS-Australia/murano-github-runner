@@ -1,0 +1,22 @@
+FormatVersion: 2.0.0
+Version: 1.0.0
+Name: Deploy GitHub Runner
+
+Parameters:
+  runnerName: $runnerName
+  runnerUrl: $runnerUrl
+  runnerToken: $runnerToken
+  runnerTags: $runnerTags
+
+Body: |
+  return runnerDeploy('\'{0}\' \'{1}\' \'{2}\' \'{3}\''.format(args.runnerName, args.runnerUrl, args.runnerToken, args.runnerTags)).stdout
+
+Scripts:
+  runnerDeploy:
+    Type: Application
+    Version: 1.0.0
+    EntryPoint: deploy.sh
+    Files: []
+    Options:
+      captureStdout: true
+      captureStderr: true
