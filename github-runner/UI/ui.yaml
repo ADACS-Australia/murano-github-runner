@@ -7,6 +7,7 @@ Application:
   runnerUrl: $.appConfiguration.runnerUrl
   runnerToken: $.appConfiguration.runnerToken
   runnerTags: $.appConfiguration.runnerTags
+  runnerReplace: $.appConfiguration.runnerReplace
   instance:
     ?:
       type: io.murano.resources.LinuxMuranoInstance
@@ -26,6 +27,13 @@ Forms:
           required: true
           description: >-
             Enter a desired name for the runner. This is the name that you will see on GitHub.
+        - name: runnerReplace
+          type: boolean
+          label: Replace
+          initial: false
+          required: false
+          description: >-
+            Tick this if you wish to replace existing runners with the same name.
         - name: runnerUrl
           type: string
           label: Repository URL

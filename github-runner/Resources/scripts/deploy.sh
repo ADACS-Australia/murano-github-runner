@@ -4,9 +4,9 @@ GH_RUNNER_NAME="$1"
 GH_REPO_URL="$2"
 GH_TOKEN="$3"
 GH_LABELS="$4"
-GH_REPLACE=false
+GH_REPLACE="$5"
 
-if $GH_REPLACE; then
+if [ "$GH_REPLACE" == "True" ]; then
   REPLACE_FLAG="--replace"
 else
   REPLACE_FLAG=""

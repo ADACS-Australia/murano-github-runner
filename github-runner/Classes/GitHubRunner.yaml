@@ -22,6 +22,9 @@ Properties:
   runnerTags:
     Contract: $.string()
 
+  runnerReplace:
+    Contract: $.string()
+
   instance:
     Contract: $.class(res:Instance).notNull()
 
@@ -37,7 +40,7 @@ Methods:
           - $._environment.reporter.report($this, 'Creating VM for GitHub runner.')
           - $.instance.deploy()
           - $resources: new(sys:Resources)
-          - $template: $resources.yaml('DeployRunner.template').bind(dict(runnerName => $.runnerName, runnerUrl => $.runnerUrl, runnerToken => $.runnerToken, runnerTags => $.runnerTags))
+          - $template: $resources.yaml('DeployRunner.template').bind(dict(runnerName => $.runnerName, runnerUrl => $.runnerUrl, runnerToken => $.runnerToken, runnerTags => $.runnerTags, runnerReplace => $.runnerReplace))
           - $._environment.reporter.report($this, 'Instance is created. Installing GitHub runner service...')
           - $.instance.agent.call($template, $resources, 600)
           - $._environment.reporter.report($this, 'Success. GitHub runner is installed and initialised')

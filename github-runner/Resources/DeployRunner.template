@@ -7,9 +7,10 @@ Parameters:
   runnerUrl: $runnerUrl
   runnerToken: $runnerToken
   runnerTags: $runnerTags
+  runnerReplace: $runnerReplace
 
 Body: |
-  return runnerDeploy('\'{0}\' \'{1}\' \'{2}\' \'{3}\''.format(args.runnerName, args.runnerUrl, args.runnerToken, args.runnerTags)).stdout
+  return runnerDeploy('\'{0}\' \'{1}\' \'{2}\' \'{3}\' \'{4}\''.format(args.runnerName, args.runnerUrl, args.runnerToken, args.runnerTags, args.runnerReplace)).stdout
 
 Scripts:
   runnerDeploy:
