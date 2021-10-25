@@ -19,7 +19,7 @@ cd /home/"${DEFAULT_USER}"
 
 # Wait for auto updates to finish
 while true; do
-  sudo apt-get install -y -qq jq > /dev/null && break || echo "Waiting 10s for apt..."; sleep 10
+  sudo apt-get install -y -qq jq docker.io > /dev/null && break || echo "Waiting 10s for apt..."; sleep 10
 done
 
 # Create a folder
