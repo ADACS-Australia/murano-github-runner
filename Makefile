@@ -3,7 +3,7 @@ TARGET=github-runner
 
 # all: update-image-id $(TARGET).zip
 
-build: $(TARGET).zip
+build: write-version $(TARGET).zip
 
 clean:
 	rm -rf $(TARGET).zip
@@ -12,7 +12,7 @@ check: $(TARGET).zip
 	murano-pkg-check $<
 
 upload: check
-	murano package-import -c "Application Servers" --package-version 1.0 --exists-action u $(TARGET).zip
+	murano package-import -c "Application Servers" --exists-action u $(TARGET).zip
 
 # public:
 # 	@echo "Searching for $(TARGET) package ID..."
@@ -29,6 +29,12 @@ update-image-id:
     echo "Found ID: $$image_id"; \
     sed -i''".bak" "s/image:.*/image: $$image_id/g" $(TARGET)/UI/ui.yaml; \
     rm $(TARGET)/UI/ui.yaml.bak
+
+write-version:
+	@version=$$(cat VERSION); \
+	echo "Writing version: $$version in manifest"; \
+	sed -i''".bak" "s/\[v.*\]/\[v$$version\]/g" $(TARGET)/manifest.yaml; \
+	rm $(TARGET)/manifest.yaml.bak
 
 $(TARGET).zip:
 	rm -f $@; cd $(TARGET); zip ../$@ -r *; cd ..

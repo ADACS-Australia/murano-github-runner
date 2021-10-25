@@ -15,6 +15,7 @@ Type: Application
 FullName: au.org.adacs.GitHubRunner
 Name: GitHub self-hosted runner
 Description: |
+ [v0.2.0]
  This package will automatically create a GitHub self-hosted runner and register it with your chosen GitHub repository using a token. The VM will use Ubuntu 20.04 LTS (Focal) amd64 as its operating system. For more information about GitHub runners, see https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners.
 Author: 'ADACS'
 Tags: [Server, WebServer, GitHub, Runner, CI, CD, CICD]
